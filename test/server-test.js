@@ -65,7 +65,7 @@ describe('Server', () => {
 
     }); // end Organization > Create
 
-    describe('Get', () => {
+    describe('Get single', () => {
 
       it('Returns saved object', () => {
         return server.inject({
@@ -87,6 +87,27 @@ describe('Server', () => {
       });
 
     }); // end Organization > Get
+
+    describe('List', () => {
+
+      it('Lists objects, without code or url', () => {
+        return server.inject({
+          method: 'GET',
+          url: 'localhost:3000/organizations'
+        })
+        .then(res => {
+          expect(res.statusCode).to.eql(200);
+          let payload = JSON.parse(res.payload);
+          expect(payload).to.eql([{
+            id: 1,
+            name: 'Foo',
+            description: 'Bar',
+            type: 'employer'
+          }]);
+        });
+      });
+
+    }); // end Organization > List
 
   }); // end Organization
 
