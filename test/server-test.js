@@ -203,6 +203,30 @@ describe('Server', () => {
 
     }); // end Organization > Update
 
+    describe('Delete', () => {
+
+      it('Should return 204', () => {
+        return server.inject({
+          method: 'DELETE',
+          url: 'localhost:3000/organizations/1'
+        })
+        .then(res => {
+          expect(res.statusCode).to.eql(204);
+        });
+      });
+
+      it('Org should return 404', () => {
+        return server.inject({
+          method: 'GET',
+          url: 'localhost:3000/organizations/1'
+        })
+        .then(res => {
+          expect(res.statusCode).to.eql(404);
+        });
+      });
+
+    }); // end Organization > Delete
+
   }); // end Organization
 
 });
