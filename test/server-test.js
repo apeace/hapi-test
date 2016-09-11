@@ -1,12 +1,14 @@
 const expect = require('chai').expect;
 
 const createServer = require('../lib/server');
+const MemoryRepo = require('../lib/repos').MemoryRepo;
 
 describe('Server', () => {
 
   const server = createServer({
     healthCheck: 'health-check',
-    port: 3000
+    port: 3000,
+    repoConstructor: MemoryRepo
   });
 
   it('health check', () => {
@@ -42,7 +44,7 @@ describe('Server', () => {
         });
       });
 
-      it('Valid data returns 201', () => {
+      it('Valid data returns 201 and object', () => {
         return server.inject({
           method: 'POST',
           url: 'localhost:3000/organizations',
@@ -56,10 +58,35 @@ describe('Server', () => {
         })
         .then(res => {
           expect(res.statusCode).to.eql(201);
+          let payload = JSON.parse(res.payload);
+          expect(payload.id).to.eql(1);
         });
       });
 
     }); // end Organization > Create
+
+    describe('Get', () => {
+
+      it('Returns saved object', () => {
+        return server.inject({
+          method: 'GET',
+          url: 'localhost:3000/organizations/1'
+        })
+        .then(res => {
+          expect(res.statusCode).to.eql(200);
+          let payload = JSON.parse(res.payload);
+          expect(payload).to.eql({
+            id: 1,
+            name: 'Foo',
+            description: 'Bar',
+            url: 'http://example.com',
+            code: 123,
+            type: 'employer'
+          });
+        });
+      });
+
+    }); // end Organization > Get
 
   }); // end Organization
 
