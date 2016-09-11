@@ -120,15 +120,16 @@ describe('Server', () => {
             name: 'Foo',
             description: 'Bar',
             type: 'employer',
-            code: 123
+            code: 123,
+            url: 'http://example.com'
           }]);
         });
       });
 
-      it('Lists objects by url', () => {
+      it('Lists objects by name', () => {
         return server.inject({
           method: 'GET',
-          url: `localhost:3000/organizations?url=${encodeURIComponent('http://example.com')}`
+          url: 'localhost:3000/organizations?name=Foo'
         })
         .then(res => {
           expect(res.statusCode).to.eql(200);
@@ -137,8 +138,7 @@ describe('Server', () => {
             id: 1,
             name: 'Foo',
             description: 'Bar',
-            type: 'employer',
-            url: 'http://example.com'
+            type: 'employer'
           }]);
         });
       });
