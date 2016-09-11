@@ -107,6 +107,42 @@ describe('Server', () => {
         });
       });
 
+      it('Lists objects by code', () => {
+        return server.inject({
+          method: 'GET',
+          url: 'localhost:3000/organizations?code=123'
+        })
+        .then(res => {
+          expect(res.statusCode).to.eql(200);
+          let payload = JSON.parse(res.payload);
+          expect(payload).to.eql([{
+            id: 1,
+            name: 'Foo',
+            description: 'Bar',
+            type: 'employer',
+            code: 123
+          }]);
+        });
+      });
+
+      it('Lists objects by url', () => {
+        return server.inject({
+          method: 'GET',
+          url: `localhost:3000/organizations?url=${encodeURIComponent('http://example.com')}`
+        })
+        .then(res => {
+          expect(res.statusCode).to.eql(200);
+          let payload = JSON.parse(res.payload);
+          expect(payload).to.eql([{
+            id: 1,
+            name: 'Foo',
+            description: 'Bar',
+            type: 'employer',
+            url: 'http://example.com'
+          }]);
+        });
+      });
+
     }); // end Organization > List
 
   }); // end Organization
