@@ -20,4 +20,47 @@ describe('Server', () => {
     });
   });
 
+  describe('Organization', () => {
+
+    describe('Create', () => {
+
+      it('Invalid data returns error', () => {
+        return server.inject({
+          method: 'POST',
+          url: 'localhost:3000/organizations',
+          payload: {
+            name: 'Foo',
+            description: 'Bar',
+            // invalid URL
+            url: 'Baz',
+            code: 123,
+            type: 'employer'
+          }
+        })
+        .then(res => {
+          expect(res.statusCode).to.eql(400);
+        });
+      });
+
+      it('Valid data returns 201', () => {
+        return server.inject({
+          method: 'POST',
+          url: 'localhost:3000/organizations',
+          payload: {
+            name: 'Foo',
+            description: 'Bar',
+            url: 'http://example.com',
+            code: 123,
+            type: 'employer'
+          }
+        })
+        .then(res => {
+          expect(res.statusCode).to.eql(201);
+        });
+      });
+
+    }); // end Organization > Create
+
+  }); // end Organization
+
 });

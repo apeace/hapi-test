@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "scripts": {
     "test": "mocha test/",
+    "test-watch": "mocha --watch test/",
     "start": "node bin/server.js"
   },
   "dependencies": {
-    "hapi": "^15.0.3"
+    "hapi": "^15.0.3",
+    "joi": "^9.0.4"
   },
   "devDependencies": {
     "chai": "^3.5.0",
