@@ -145,6 +145,64 @@ describe('Server', () => {
 
     }); // end Organization > List
 
+    describe('Update', () => {
+
+      it('Invalid data returns error', () => {
+        return server.inject({
+          method: 'PUT',
+          url: 'localhost:3000/organizations/1',
+          payload: {
+            name: 'Foo',
+            description: 'Bar',
+            // invalid URL
+            url: 'Baz',
+            code: 123,
+            type: 'employer'
+          }
+        })
+        .then(res => {
+          expect(res.statusCode).to.eql(400);
+        });
+      });
+
+      it('Valid data returns object', () => {
+        return server.inject({
+          method: 'PUT',
+          url: 'localhost:3000/organizations/1',
+          payload: {
+            name: 'Foo',
+            description: 'Bar',
+            url: 'http://example2.com',
+            code: 123,
+            type: 'employer'
+          }
+        })
+        .then(res => {
+          expect(res.statusCode).to.eql(200);
+        });
+      });
+
+      it('Updated object returned', () => {
+        return server.inject({
+          method: 'GET',
+          url: 'localhost:3000/organizations/1'
+        })
+        .then(res => {
+          expect(res.statusCode).to.eql(200);
+          let payload = JSON.parse(res.payload);
+          expect(payload).to.eql({
+            id: 1,
+            name: 'Foo',
+            description: 'Bar',
+            url: 'http://example2.com',
+            code: 123,
+            type: 'employer'
+          });
+        });
+      });
+
+    }); // end Organization > Update
+
   }); // end Organization
 
 });
