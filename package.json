@@ -9,7 +9,8 @@
   "dependencies": {
     "hapi": "^15.0.3",
     "joi": "^9.0.4",
-    "mysql": "^2.11.1"
+    "mysql": "^2.11.1",
+    "redis": "^2.6.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
