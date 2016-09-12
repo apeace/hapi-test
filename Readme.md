@@ -57,11 +57,6 @@ but as a stand-alone caching layer, the `CachingRepo` I built could
 use some improvements. For one thing, it has the `name` and `code`
 keys hard-coded so that invalidation can be performed properly.
 
-## TODO
-
- * Handle MySQL & Redis disconnects so the process won't crash
-   on Heroku.
-
 ## Improvements
 
 Here are ways I would improve this app to make it production-ready.
