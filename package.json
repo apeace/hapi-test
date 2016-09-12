@@ -1,6 +1,9 @@
 {
   "name": "hapi-test",
   "version": "1.0.0",
+  "engines": {
+    "node": ">= 6"
+  },
   "scripts": {
     "test": "NODE_ENV=test mocha test/",
     "test-watch": "NODE_ENV=test mocha --watch test/",
