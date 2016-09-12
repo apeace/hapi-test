@@ -2,10 +2,6 @@
 
 Playing with [Hapi.js](http://hapijs.com/) framework.
 
-## TODO
-
- * Add caching
-
 ## Run tests
 
 Install and run tests with:
@@ -42,6 +38,19 @@ and can override various methods on repositories. This way, one
 repository implementation can be used for tests, one for
 production, and all schemas can overwrite methods one time.
 
+## Caching
+
+Using Hapi [server method caching](http://hapijs.com/tutorials/caching#server-methods)
+looked promising, but after going through some documentation, I
+wasn't clear on how cache invalidation was supposed to happen. So
+I decided to take advantage of my repository abstraction and roll
+my own simple caching mechanism.
+
+Normally I would go with the framework-provided method for caching,
+but as a stand-alone caching layer, the `CachingRepo` I built could
+use some improvements. For one thing, it has the `name` and `code`
+keys hard-coded so that invalidation can be performed properly.
+
 ## Improvements
 
 Here are ways I would improve this app to make it production-ready.
@@ -50,3 +59,4 @@ I didn't do these in the interest of time.
  * Unit-testing for `MySQLRepo` using mocks.
  * Proper MySQL schema definition and migrations.
  * Automate local setup using Docker.
+ * Cache layer improvements mentioned above.
