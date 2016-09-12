@@ -1,11 +1,11 @@
 const createServer = require('../lib/server');
 const config = require('../lib/config');
-const MySQLRepo = require('../lib/repos').MySQLRepo;
+const CachingRepo = require('../lib/repos').CachingRepo;
 
 const serverCfg = {
   healthCheck: 'health-check',
   port: config.port,
-  repoConstructor: MySQLRepo
+  repoConstructor: CachingRepo
 };
 const server = createServer(serverCfg);
 
