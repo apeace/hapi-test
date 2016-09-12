@@ -38,6 +38,12 @@ and can override various methods on repositories. This way, one
 repository implementation can be used for tests, one for
 production, and all schemas can overwrite methods one time.
 
+You might notice that `MySQLRepo` has some special logic for
+reconnecting. The MySQL service I used on Heroku seemed eager to
+drop connections, so I hacked this in as an afterthought. In a
+real-world app, a proper connection-pooling library would be used.
+(Or more likely, an actual ORM that hides connection details).
+
 ## Caching
 
 Using Hapi [server method caching](http://hapijs.com/tutorials/caching#server-methods)
